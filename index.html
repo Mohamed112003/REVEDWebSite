@@ -22,6 +22,7 @@
     <meta name="theme-color" content="#111111">
     <title>REVED | تصنيع المصاعد الكهربائية - مصاعد ركاب - مصاعد بضائع - صيانة مصاعد</title>
     <link rel="icon" type="image/png" href="Assets/REVEDLOGO.png">
+    <link rel="dns-prefetch" href="https://wa.me">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -37,7 +38,8 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"></noscript>
     <style>
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -89,24 +91,17 @@
             -moz-osx-font-smoothing:grayscale;
         }
 
-        /* ============================================ */
-        /*              NOISE OVERLAY                   */
-        /* ============================================ */
-        body::before{
-            content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;
-            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E");
-            opacity:0.5;
-        }
+        /* Noise overlay removed for performance */
 
         /* ============================================ */
         /*              PRELOADER                       */
         /* ============================================ */
-        .preloader{position:fixed;inset:0;background:var(--bg-primary);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),visibility 0.8s}
+        .preloader{position:fixed;inset:0;background:var(--bg-primary);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 0.5s ease-out,visibility 0.5s}
         .preloader.done{opacity:0;visibility:hidden;pointer-events:none}
         .preloader-logo{width:60px;height:60px;position:relative}
         .preloader-logo img{width:100%;height:100%;object-fit:contain}
         .preloader-bar{width:120px;height:2px;background:var(--gray-800);border-radius:2px;overflow:hidden}
-        .preloader-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gray-400),var(--white));border-radius:2px;animation:preloadBar 1.2s ease-in-out forwards}
+        .preloader-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gray-400),var(--white));border-radius:2px;animation:preloadBar 0.6s ease-in-out forwards}
         @keyframes preloadBar{to{width:100%}}
 
         /* ============================================ */
@@ -120,21 +115,22 @@
             background-size:80px 80px;
             mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
             -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+            contain:strict;
         }
 
         /* ============================================ */
         /*              GLOW ORBS                       */
         /* ============================================ */
-        .glow-orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
-        .glow-orb-1{width:500px;height:500px;background:rgba(255,255,255,0.025);top:-10%;right:-5%}
-        .glow-orb-2{width:400px;height:400px;background:rgba(255,255,255,0.02);bottom:20%;left:-10%}
+        .glow-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;will-change:transform;contain:strict}
+        .glow-orb-1{width:350px;height:350px;background:rgba(255,255,255,0.025);top:-10%;right:-5%}
+        .glow-orb-2{width:300px;height:300px;background:rgba(255,255,255,0.02);bottom:20%;left:-10%}
 
         /* ============================================ */
         /*              NAV                             */
         /* ============================================ */
         .nav{position:fixed;top:0;width:100%;z-index:9998;transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
         .nav-bg{position:absolute;inset:0;background:transparent;border-bottom:1px solid transparent;transition:all 0.4s}
-        .nav.scrolled .nav-bg{background:rgba(17,17,17,0.9);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom-color:var(--border)}
+        .nav.scrolled .nav-bg{background:rgba(17,17,17,0.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom-color:var(--border)}
         .nav-inner{max-width:1320px;margin:0 auto;padding:1.2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
         .nav-logo{display:flex;align-items:center;gap:0.65rem;text-decoration:none}
         .nav-logo img{width:36px;height:36px;object-fit:contain;transition:transform 0.3s}
@@ -239,6 +235,7 @@
             border:1px solid rgba(255,255,255,0.1);border-radius:8px;
             background:rgba(255,255,255,0.03);
             animation:elevatorMove 6s ease-in-out infinite;
+            will-change:top;
         }
         .elevator-cabin::before{
             content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
@@ -264,7 +261,7 @@
         /*              MARQUEE                         */
         /* ============================================ */
         .marquee-section{position:relative;z-index:2;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-        .marquee-track{display:flex;animation:marquee 40s linear infinite;width:max-content}
+        .marquee-track{display:flex;animation:marquee 40s linear infinite;width:max-content;will-change:transform}
         .marquee-item{
             display:flex;align-items:center;gap:2rem;padding:1.2rem 2.5rem;
             font-size:0.85rem;font-weight:700;color:var(--gray-600);
@@ -307,7 +304,7 @@
         }
         .bento-card:hover{border-color:var(--border-hover);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
 
-        .bento-card-bg{position:absolute;inset:0;z-index:0;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+        .bento-card-bg{position:absolute;inset:0;z-index:0;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1);contain:layout style}
         .bento-card:hover .bento-card-bg{transform:scale(1.05)}
 
         .bento-card-content{position:relative;z-index:2}
@@ -922,7 +919,7 @@
 
         /* ─── Preloader ─── */
         window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('preloader').classList.add('done'), 1200);
+            setTimeout(() => document.getElementById('preloader').classList.add('done'), 400);
         });
 
         /* ─── Navbar scroll ─── */
