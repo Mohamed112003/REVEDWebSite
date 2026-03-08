@@ -23,6 +23,7 @@
     <title>REVED | تصنيع المصاعد الكهربائية - مصاعد ركاب - مصاعد بضائع - صيانة مصاعد</title>
     <link rel="icon" type="image/png" href="Assets/REVEDLOGO.png">
     <link rel="dns-prefetch" href="https://wa.me">
+    <link rel="dns-prefetch" href="https://www.facebook.com">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -32,7 +33,8 @@
         "description": "شركة REVED متخصصة في تصنيع المصاعد الكهربائية على أعلى مستوى في مصر",
         "telephone": "+201012074783",
         "address": { "@type": "PostalAddress", "addressCountry": "EG" },
-        "founder": { "@type": "Person", "name": "المهندس محمد عبد الفتاح", "alternateName": "Mohamed Abdel Fattah" },
+        "founder": { "@type": "Person", "name": "المهندس محمود احمد عبدالفتاح", "alternateName": "Mahmoud Ahmed Abdel Fattah" },
+        "sameAs": ["https://www.facebook.com/Revedsolutions"],
         "serviceType": ["تصنيع مصاعد", "تركيب مصاعد", "صيانة مصاعد", "مصاعد ركاب", "مصاعد بضائع", "مصاعد بانوراما"]
     }
     </script>
@@ -434,6 +436,15 @@
         }
         .cta-btn-wa:hover{background:rgba(37,211,102,0.12);border-color:rgba(37,211,102,0.4);transform:translateY(-2px)}
 
+        .cta-btn-fb{
+            display:inline-flex;align-items:center;gap:0.7rem;
+            padding:1.1rem 2.5rem;border-radius:14px;
+            font-weight:700;font-size:0.95rem;text-decoration:none;
+            transition:all 0.4s;border:1px solid rgba(66,103,178,0.25);cursor:pointer;
+            background:rgba(66,103,178,0.06);color:#7ea6f5;
+        }
+        .cta-btn-fb:hover{background:rgba(66,103,178,0.12);border-color:rgba(66,103,178,0.4);transform:translateY(-2px)}
+
         .cta-founder{margin-top:2rem;font-size:0.85rem;color:var(--gray-600)}
         .cta-founder strong{color:var(--gray-400);font-weight:700}
 
@@ -507,7 +518,7 @@
             .coverage-container{padding:2.5rem 1.5rem}
             .cta-card{padding:3rem 1.5rem;border-radius:20px}
             .cta-buttons{flex-direction:column;align-items:center}
-            .cta-btn-call,.cta-btn-wa{width:100%;max-width:280px;justify-content:center}
+            .cta-btn-call,.cta-btn-wa,.cta-btn-fb{width:100%;max-width:280px;justify-content:center}
             .hero-actions{flex-direction:column;align-items:stretch}
             .hero-btn-primary,.hero-btn-secondary{justify-content:center}
             .footer-top{flex-direction:column}
@@ -540,12 +551,28 @@
             background:var(--bg-card);border:1px solid var(--border);
             transition:border-color 0.4s,box-shadow 0.5s,transform 0.5s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease;
         }
+        .project-card::before{
+            content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+            background:linear-gradient(180deg,
+                rgba(17,17,17,0.25) 0%,
+                rgba(17,17,17,0.10) 40%,
+                rgba(17,17,17,0.15) 70%,
+                rgba(17,17,17,0.55) 100%);
+            transition:opacity 0.5s;
+        }
+        .project-card:hover::before{
+            background:linear-gradient(180deg,
+                rgba(17,17,17,0.10) 0%,
+                rgba(17,17,17,0.0) 40%,
+                rgba(17,17,17,0.05) 70%,
+                rgba(17,17,17,0.70) 100%);
+        }
         .project-card:hover{border-color:var(--border-hover);transform:translateY(-4px) !important;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-        .project-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);display:block;position:relative;z-index:0}
-        .project-card:hover img{transform:scale(1.06)}
+        .project-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.5s;display:block;position:relative;z-index:0;filter:brightness(0.78) saturate(0.85)}
+        .project-card:hover img{transform:scale(1.06);filter:brightness(0.9) saturate(1)}
         .project-card-overlay{
-            position:absolute;inset:0;
-            background:linear-gradient(0deg,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.1) 50%,transparent 100%);
+            position:absolute;inset:0;z-index:2;
+            background:linear-gradient(0deg,rgba(17,17,17,0.92) 0%,rgba(17,17,17,0.3) 40%,transparent 100%);
             display:flex;flex-direction:column;justify-content:flex-end;
             padding:1.5rem;opacity:0;transition:opacity 0.4s;
         }
@@ -553,14 +580,14 @@
         .project-card-overlay h4{font-size:1rem;font-weight:800;color:var(--white);margin-bottom:0.3rem}
         .project-card-overlay span{font-size:0.75rem;color:var(--gray-400);font-weight:600}
         .project-view-icon{
-            position:absolute;top:1rem;left:1rem;
+            position:absolute;top:1rem;left:1rem;z-index:3;
             width:36px;height:36px;border-radius:50%;
-            background:rgba(255,255,255,0.1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+            background:rgba(255,255,255,0.08);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
             display:flex;align-items:center;justify-content:center;
-            border:1px solid rgba(255,255,255,0.15);transition:all 0.3s;
+            border:1px solid rgba(255,255,255,0.12);transition:all 0.3s;
         }
-        .project-card:hover .project-view-icon{background:rgba(255,255,255,0.2)}
-        .project-card img.lazy{opacity:0;transition:opacity 0.5s ease}
+        .project-card:hover .project-view-icon{background:rgba(255,255,255,0.18)}
+        .project-card img.lazy{opacity:0;transition:opacity 0.6s ease,filter 0.5s}
         .project-card img.loaded{opacity:1}
         .project-card .img-placeholder{
             position:absolute;inset:0;
@@ -727,7 +754,7 @@
             </h1>
 
             <p class="hero-desc">
-                من خبرة المهندس محمد عبد الفتاح — نقدم حلولاً متكاملة في تصنيع وتركيب
+                من خبرة المهندس محمود احمد عبدالفتاح — نقدم حلولاً متكاملة في تصنيع وتركيب
                 وصيانة المصاعد الكهربائية بأحدث التقنيات العالمية وأعلى معايير الجودة والأمان
             </p>
 
@@ -1051,8 +1078,12 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             واتساب
                         </a>
+                        <a href="https://www.facebook.com/Revedsolutions" class="cta-btn-fb" target="_blank">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            فيسبوك
+                        </a>
                     </div>
-                    <p class="cta-founder">م. <strong>محمد عبد الفتاح</strong> · المؤسس والمدير التنفيذي · استشارة مجانية</p>
+                    <p class="cta-founder">م. <strong>محمود احمد عبدالفتاح</strong> · المؤسس والمدير التنفيذي · استشارة مجانية</p>
                 </div>
             </div>
         </div>
@@ -1089,12 +1120,13 @@
                         <h6>تواصل</h6>
                         <a href="tel:+201012074783">01012074783</a>
                         <a href="https://wa.me/201012074783" target="_blank">واتساب</a>
+                        <a href="https://www.facebook.com/Revedsolutions" target="_blank">فيسبوك</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
                 <span class="footer-copy">© 2026 REVED — جميع الحقوق محفوظة</span>
-                <span class="footer-seo">REVED | ريفيد · تصنيع المصاعد الكهربائية · مصاعد ركاب · بضائع · بانوراما · هيدروليكية · منزلية · صيانة · م. محمد عبد الفتاح</span>
+                <span class="footer-seo">REVED | ريفيد · تصنيع المصاعد الكهربائية · مصاعد ركاب · بضائع · بانوراما · هيدروليكية · منزلية · صيانة · م. محمود احمد عبدالفتاح</span>
             </div>
         </div>
     </footer>
@@ -1102,6 +1134,10 @@
     <script>
     (function(){
         'use strict';
+
+        /* ─── Force scroll to top on reload ─── */
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
 
         /* ─── Preloader ─── */
         window.addEventListener('load', () => {
@@ -1296,7 +1332,13 @@
             var allCats = ['الكل'].concat(cats);
 
             var projects = meta.map(function(m, i) {
-                return { img: encodeURI('Projects/' + imgFiles[i]), title: m.t, cat: cats[m.c], desc: catDescs[m.c], floors: m.f, capacity: m.cap, year: m.y };
+                var fileName = imgFiles[i];
+                return {
+                    img: encodeURI('Projects/' + fileName),
+                    thumb: encodeURI('Projects/thumbs/' + fileName),
+                    title: m.t, cat: cats[m.c], desc: catDescs[m.c],
+                    floors: m.f, capacity: m.cap, year: m.y
+                };
             });
 
             /* Render filter buttons */
@@ -1338,7 +1380,7 @@
                     card.setAttribute('tabindex', '0');
                     card.setAttribute('aria-label', p.title + ' — ' + p.cat);
                     card.innerHTML = '<div class="img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>' +
-                        '<img class="lazy" data-src="' + p.img + '" alt="' + p.title + '" loading="lazy">' +
+                        '<img class="lazy" data-src="' + p.thumb + '" alt="' + p.title + '" loading="lazy" decoding="async" width="480" height="360">' +
                         '<div class="project-card-overlay"><div class="project-view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>' +
                         '<span>' + p.cat + '</span><h4>' + p.title + '</h4></div>';
                     card.style.opacity = '0';
@@ -1391,11 +1433,23 @@
                         lazyObs.unobserve(img);
                     }
                 });
-            }, { rootMargin: '300px', threshold: 0.01 });
+            }, { rootMargin: '200px', threshold: 0.01 });
 
             function lazyLoad() {
                 var imgs = document.querySelectorAll('.project-card img.lazy:not(.loaded)');
                 imgs.forEach(function(img) { lazyObs.observe(img); });
+            }
+
+            /* Preload first batch of thumbnails for instant display */
+            function preloadFirstBatch() {
+                var first = getFiltered().slice(0, BATCH);
+                first.forEach(function(p) {
+                    var link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = p.thumb;
+                    document.head.appendChild(link);
+                });
             }
 
             document.getElementById('loadMoreBtn').addEventListener('click', loadBatch);
@@ -1448,6 +1502,7 @@
             });
 
             /* Initial load */
+            preloadFirstBatch();
             loadBatch();
         })();
 
