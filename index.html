@@ -520,6 +520,147 @@
             .sec-title{font-size:1.5rem}
             .hero-stat-num{font-size:1.3rem}
         }
+
+        /* ============================================ */
+        /*              PROJECTS GALLERY                */
+        /* ============================================ */
+        .projects-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:0.5rem;margin-top:2rem;margin-bottom:2.5rem}
+        .projects-filter-btn{
+            padding:0.5rem 1.4rem;border-radius:100px;
+            border:1px solid var(--border);background:rgba(255,255,255,0.02);
+            color:var(--gray-400);font-size:0.8rem;font-weight:600;
+            cursor:pointer;transition:all 0.3s;font-family:var(--font-ar);
+        }
+        .projects-filter-btn:hover{border-color:var(--border-hover);color:var(--gray-200)}
+        .projects-filter-btn.active{background:var(--white);color:var(--bg-primary);border-color:var(--white)}
+        .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;transition:opacity 0.25s ease,transform 0.25s ease}
+        .project-card{
+            position:relative;border-radius:16px;overflow:hidden;
+            aspect-ratio:4/3;cursor:pointer;
+            background:var(--bg-card);border:1px solid var(--border);
+            transition:border-color 0.4s,box-shadow 0.5s,transform 0.5s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease;
+        }
+        .project-card:hover{border-color:var(--border-hover);transform:translateY(-4px) !important;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+        .project-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);display:block;position:relative;z-index:0}
+        .project-card:hover img{transform:scale(1.06)}
+        .project-card-overlay{
+            position:absolute;inset:0;
+            background:linear-gradient(0deg,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.1) 50%,transparent 100%);
+            display:flex;flex-direction:column;justify-content:flex-end;
+            padding:1.5rem;opacity:0;transition:opacity 0.4s;
+        }
+        .project-card:hover .project-card-overlay{opacity:1}
+        .project-card-overlay h4{font-size:1rem;font-weight:800;color:var(--white);margin-bottom:0.3rem}
+        .project-card-overlay span{font-size:0.75rem;color:var(--gray-400);font-weight:600}
+        .project-view-icon{
+            position:absolute;top:1rem;left:1rem;
+            width:36px;height:36px;border-radius:50%;
+            background:rgba(255,255,255,0.1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+            display:flex;align-items:center;justify-content:center;
+            border:1px solid rgba(255,255,255,0.15);transition:all 0.3s;
+        }
+        .project-card:hover .project-view-icon{background:rgba(255,255,255,0.2)}
+        .project-card img.lazy{opacity:0;transition:opacity 0.5s ease}
+        .project-card img.loaded{opacity:1}
+        .project-card .img-placeholder{
+            position:absolute;inset:0;
+            background:var(--bg-card);
+            display:flex;align-items:center;justify-content:center;
+            overflow:hidden;
+        }
+        .project-card .img-placeholder::after{
+            content:'';position:absolute;inset:0;width:200%;
+            background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.04) 40%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.04) 60%,transparent 100%);
+            animation:imgShimmer 1.8s ease-in-out infinite;
+        }
+        .project-card .img-placeholder{transition:opacity 0.4s ease}
+        @keyframes imgShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+        .project-card .img-placeholder svg{width:32px;height:32px;stroke:var(--gray-700);opacity:0.5;position:relative;z-index:1}
+        .load-more-container{text-align:center;margin-top:2.5rem}
+        .load-more-btn{
+            display:inline-flex;align-items:center;gap:0.7rem;
+            padding:0.9rem 2.5rem;border-radius:100px;
+            border:1px solid var(--border);background:rgba(255,255,255,0.03);
+            color:var(--gray-300);font-size:0.88rem;font-weight:700;
+            cursor:pointer;transition:all 0.4s;font-family:var(--font-ar);
+        }
+        .load-more-btn:hover{border-color:var(--border-hover);color:var(--white);background:rgba(255,255,255,0.06);transform:translateY(-2px)}
+        .load-more-btn svg{transition:transform 0.3s}
+        .load-more-btn:hover svg{transform:translateY(3px)}
+        .projects-counter{text-align:center;margin-top:1rem;font-size:0.75rem;color:var(--gray-600);font-weight:500}
+
+        /* Project Modal */
+        .project-modal{
+            position:fixed;inset:0;z-index:99999;
+            background:rgba(0,0,0,0.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+            display:flex;align-items:center;justify-content:center;
+            opacity:0;visibility:hidden;transition:all 0.4s;padding:2rem;
+        }
+        .project-modal.active{opacity:1;visibility:visible}
+        .project-modal-content{
+            max-width:900px;width:100%;
+            background:var(--bg-card);border:1px solid var(--border);
+            border-radius:24px;overflow:hidden;
+            transform:scale(0.9) translateY(30px);
+            transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+            max-height:90vh;overflow-y:auto;
+        }
+        .project-modal.active .project-modal-content{transform:scale(1) translateY(0)}
+        .project-modal-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--bg-tertiary);transition:opacity 0.3s}
+        .project-modal-img.loading{opacity:0.3}
+        .project-modal-body{padding:2rem}
+        .project-modal-cat{
+            display:inline-flex;align-items:center;gap:0.4rem;
+            padding:0.3rem 0.8rem;border-radius:100px;
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+            font-size:0.7rem;color:var(--gray-400);font-weight:600;margin-bottom:1rem;
+        }
+        .project-modal-title{font-size:1.4rem;font-weight:900;color:var(--white);margin-bottom:0.8rem}
+        .project-modal-desc{font-size:0.92rem;color:var(--gray-400);line-height:1.9;margin-bottom:1.5rem}
+        .project-modal-details{
+            display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+            padding-top:1.5rem;border-top:1px solid var(--border);
+        }
+        .project-modal-detail{text-align:center}
+        .project-modal-detail strong{display:block;font-family:var(--font-en);font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:0.2rem}
+        .project-modal-detail span{font-size:0.72rem;color:var(--gray-500)}
+        .project-modal-close{
+            position:absolute;top:1.5rem;right:1.5rem;
+            width:44px;height:44px;border-radius:50%;
+            background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+            -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;transition:all 0.3s;z-index:10;
+        }
+        .project-modal-close:hover{background:rgba(255,255,255,0.15);transform:scale(1.1)}
+        .project-modal-close svg{width:18px;height:18px;stroke:var(--white);stroke-width:2.5}
+        .project-modal-nav{
+            position:absolute;top:50%;transform:translateY(-50%);
+            width:44px;height:44px;border-radius:50%;
+            background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);
+            -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;transition:all 0.3s;
+        }
+        .project-modal-nav:hover{background:rgba(255,255,255,0.15)}
+        .project-modal-nav.prev{left:1.5rem}
+        .project-modal-nav.next{right:1.5rem}
+        .project-modal-nav svg{width:18px;height:18px;stroke:var(--white);stroke-width:2.5}
+        .project-modal-content::-webkit-scrollbar{width:4px}
+        .project-modal-content::-webkit-scrollbar-track{background:transparent}
+        .project-modal-content::-webkit-scrollbar-thumb{background:var(--gray-700);border-radius:10px}
+
+        @media(max-width:1024px){
+            .projects-grid{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:768px){
+            .projects-grid{grid-template-columns:1fr}
+            .project-modal{padding:1rem}
+            .project-modal-content{border-radius:16px}
+            .project-modal-body{padding:1.5rem}
+            .project-modal-details{grid-template-columns:1fr;gap:0.8rem}
+            .project-modal-nav{display:none}
+        }
     </style>
 </head>
 <body>
@@ -546,6 +687,7 @@
                 <li><a href="#home" class="active">الرئيسية</a></li>
                 <li><a href="#services">خدماتنا</a></li>
                 <li><a href="#why">لماذا نحن</a></li>
+                <li><a href="#projects">مشاريعنا</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
             <a href="#contact" class="nav-cta">
@@ -563,6 +705,7 @@
         <a href="#home">الرئيسية</a>
         <a href="#services">خدماتنا</a>
         <a href="#why">لماذا نحن</a>
+        <a href="#projects">مشاريعنا</a>
         <a href="#contact">تواصل معنا</a>
     </div>
 
@@ -849,6 +992,48 @@
         </div>
     </section>
 
+    <!-- Projects Gallery -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="reveal" style="text-align:center;margin-bottom:1rem">
+                <div class="sec-eyebrow" style="justify-content:center">أعمالنا</div>
+                <h2 class="sec-title">عملاء <span class="accent">وثقوا بنا</span></h2>
+                <p class="sec-desc" style="margin:1rem auto 0">نفخر بتنفيذ مشاريع متنوعة في جميع أنحاء مصر — كل مشروع يعكس التزامنا بالجودة والتميز</p>
+            </div>
+            <div class="projects-filters reveal" data-d="1" id="projectsFilters"></div>
+            <div class="projects-grid" id="projectsGrid"></div>
+            <div class="load-more-container" id="loadMoreContainer">
+                <button class="load-more-btn" id="loadMoreBtn">
+                    <span>عرض المزيد</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="projects-counter" id="projectsCounter"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal" role="dialog" aria-modal="true" aria-label="تفاصيل المشروع">
+        <button class="project-modal-close" id="projectModalClose" aria-label="إغلاق">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="project-modal-nav prev" id="projectPrev" aria-label="المشروع السابق">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="project-modal-nav next" id="projectNext" aria-label="المشروع التالي">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="project-modal-content" id="projectModalContent">
+            <img class="project-modal-img" id="projectModalImg" src="" alt="">
+            <div class="project-modal-body">
+                <div class="project-modal-cat" id="projectModalCat"></div>
+                <h3 class="project-modal-title" id="projectModalTitle"></h3>
+                <p class="project-modal-desc" id="projectModalDesc"></p>
+                <div class="project-modal-details" id="projectModalDetails"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- CTA -->
     <section class="cta-section" id="contact">
         <div class="container">
@@ -890,6 +1075,7 @@
                         <a href="#home">الرئيسية</a>
                         <a href="#services">خدماتنا</a>
                         <a href="#why">لماذا نحن</a>
+                        <a href="#projects">مشاريعنا</a>
                         <a href="#contact">تواصل معنا</a>
                     </div>
                     <div class="footer-col">
@@ -1012,6 +1198,258 @@
         }
 
         /* ─── Parallax glow orbs removed for performance ─── */
+
+        /* ─── Projects Gallery ─── */
+        (function(){
+            var BATCH = 9, shown = 0, currentFilter = 'الكل', modalIdx = -1;
+
+            var imgFiles = [
+                'WhatsApp Image 2026-03-07 at 7.02.38 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.41 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.41 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.43 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.44 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.45 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.45 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.46 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.47 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.47 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.48 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.49 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.50 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.51 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.52 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.53 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.54 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.54 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.55 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.55 PM (2).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.55 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.56 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.57 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.57 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.58 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.58 PM (2).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.58 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.59 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.02.59 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.00 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.00 PM (2).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.00 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.01 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.01 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.02 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.03 PM (1).jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.03 PM.jpeg',
+                'WhatsApp Image 2026-03-07 at 7.03.05 PM.jpeg'
+            ];
+
+            var meta = [
+                {t:'برج المعادي السكني',c:0,f:'12',cap:'8 أفراد',y:'2025'},
+                {t:'مجمع الأندلس التجاري',c:1,f:'6',cap:'3 طن',y:'2025'},
+                {t:'فندق النيل الكبير',c:2,f:'15',cap:'10 أفراد',y:'2024'},
+                {t:'فيلا الياسمين',c:3,f:'4',cap:'4 أفراد',y:'2025'},
+                {t:'أبراج النيل الجديدة',c:0,f:'20',cap:'13 فرد',y:'2025'},
+                {t:'مصنع الدلتا الصناعي',c:1,f:'5',cap:'5 طن',y:'2024'},
+                {t:'فندق الإسكندرية بلازا',c:2,f:'12',cap:'8 أفراد',y:'2025'},
+                {t:'فيلا التجمع الخامس',c:3,f:'3',cap:'3 أفراد',y:'2024'},
+                {t:'صيانة برج النخيل',c:4,f:'14',cap:'10 أفراد',y:'2025'},
+                {t:'برج الشروق السكني',c:0,f:'15',cap:'10 أفراد',y:'2024'},
+                {t:'مستودعات العاشر',c:1,f:'4',cap:'4 طن',y:'2025'},
+                {t:'مول سيتي ستارز',c:2,f:'8',cap:'8 أفراد',y:'2024'},
+                {t:'فيلا المقطم',c:3,f:'5',cap:'4 أفراد',y:'2025'},
+                {t:'صيانة أبراج المهندسين',c:4,f:'10',cap:'8 أفراد',y:'2024'},
+                {t:'برج التحرير',c:0,f:'18',cap:'12 فرد',y:'2025'},
+                {t:'مصنع 6 أكتوبر',c:1,f:'8',cap:'2 طن',y:'2024'},
+                {t:'مركز الجيزة التجاري',c:2,f:'10',cap:'6 أفراد',y:'2025'},
+                {t:'فيلا أكتوبر الخاصة',c:3,f:'3',cap:'3 أفراد',y:'2026'},
+                {t:'تركيب مصعد المنصورة',c:4,f:'8',cap:'6 أفراد',y:'2026'},
+                {t:'أبراج العبور',c:0,f:'16',cap:'10 أفراد',y:'2025'},
+                {t:'مصنع العبيكان',c:1,f:'5',cap:'3 طن',y:'2025'},
+                {t:'فندق المنصورة',c:2,f:'9',cap:'8 أفراد',y:'2025'},
+                {t:'فيلا الرحاب',c:3,f:'4',cap:'4 أفراد',y:'2024'},
+                {t:'صيانة فندق شرم الشيخ',c:4,f:'20',cap:'15 فرد',y:'2025'},
+                {t:'برج بيراميدز',c:0,f:'25',cap:'15 فرد',y:'2026'},
+                {t:'مخازن السويس',c:1,f:'7',cap:'2.5 طن',y:'2025'},
+                {t:'فندق بورتو مارينا',c:2,f:'6',cap:'6 أفراد',y:'2026'},
+                {t:'فيلا مدينتي',c:3,f:'4',cap:'4 أفراد',y:'2025'},
+                {t:'صيانة برج الساحل',c:4,f:'12',cap:'8 أفراد',y:'2024'},
+                {t:'مجمع القاهرة الجديدة',c:0,f:'14',cap:'8 أفراد',y:'2024'},
+                {t:'فيلا الشروق',c:3,f:'3',cap:'3 أفراد',y:'2026'},
+                {t:'تركيب مصعد سوهاج',c:4,f:'6',cap:'4 أفراد',y:'2025'},
+                {t:'أبراج الزمالك',c:0,f:'10',cap:'6 أفراد',y:'2025'},
+                {t:'فيلا القاهرة الجديدة',c:3,f:'5',cap:'5 أفراد',y:'2025'},
+                {t:'صيانة مجمع طنطا',c:4,f:'15',cap:'12 فرد',y:'2026'},
+                {t:'برج مدينتي',c:0,f:'22',cap:'13 فرد',y:'2026'},
+                {t:'فيلا الشيخ زايد',c:3,f:'4',cap:'4 أفراد',y:'2024'},
+                {t:'أبراج الرحاب السكنية',c:0,f:'16',cap:'10 أفراد',y:'2025'}
+            ];
+
+            var cats = ['مصاعد ركاب','مصاعد بضائع','مصاعد بانوراما','مصاعد منزلية','صيانة وتركيب'];
+            var catDescs = [
+                'تصميم وتنفيذ نظام مصاعد ركاب متكامل بأحدث التقنيات الأوروبية مع تشطيبات فاخرة وأنظمة أمان متعددة المستويات تضمن سلامة وراحة المستخدمين',
+                'مصعد بضائع بهيكل فولاذي مقوى وباب أوتوماتيكي عريض — مصمم لتحمل ظروف التشغيل الشاقة والأحمال الثقيلة مع أعلى معايير السلامة',
+                'مصعد بانوراما بتصميم زجاجي فاخر يوفر إطلالة بانورامية ساحرة مع أنظمة إضاءة LED ذكية وتصميم عصري يضيف لمسة جمالية مميزة',
+                'مصعد منزلي بتصميم مدمج وهادئ يتناسب مع الديكور الداخلي — تشغيل سلس وآمن مع استهلاك منخفض للطاقة وراحة لجميع أفراد الأسرة',
+                'صيانة شاملة ودورية لأنظمة المصاعد تشمل الفحص الكامل وتبديل القطع واختبارات السلامة والأداء وتحديث الأنظمة بأحدث المعايير'
+            ];
+            var allCats = ['الكل'].concat(cats);
+
+            var projects = meta.map(function(m, i) {
+                return { img: encodeURI('Projects/' + imgFiles[i]), title: m.t, cat: cats[m.c], desc: catDescs[m.c], floors: m.f, capacity: m.cap, year: m.y };
+            });
+
+            /* Render filter buttons */
+            var filtersEl = document.getElementById('projectsFilters');
+            allCats.forEach(function(cat) {
+                var btn = document.createElement('button');
+                btn.className = 'projects-filter-btn' + (cat === 'الكل' ? ' active' : '');
+                btn.textContent = cat;
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.projects-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    currentFilter = cat;
+                    shown = 0;
+                    var grid = document.getElementById('projectsGrid');
+                    grid.style.opacity = '0';
+                    grid.style.transform = 'translateY(12px)';
+                    setTimeout(function() {
+                        grid.innerHTML = '';
+                        grid.style.opacity = '1';
+                        grid.style.transform = '';
+                        loadBatch();
+                    }, 250);
+                });
+                filtersEl.appendChild(btn);
+            });
+
+            function getFiltered() {
+                return currentFilter === 'الكل' ? projects : projects.filter(function(p) { return p.cat === currentFilter; });
+            }
+
+            function loadBatch() {
+                var grid = document.getElementById('projectsGrid');
+                var filtered = getFiltered();
+                var batch = filtered.slice(shown, shown + BATCH);
+                batch.forEach(function(p, i) {
+                    var card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.setAttribute('role', 'button');
+                    card.setAttribute('tabindex', '0');
+                    card.setAttribute('aria-label', p.title + ' — ' + p.cat);
+                    card.innerHTML = '<div class="img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>' +
+                        '<img class="lazy" data-src="' + p.img + '" alt="' + p.title + '" loading="lazy">' +
+                        '<div class="project-card-overlay"><div class="project-view-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>' +
+                        '<span>' + p.cat + '</span><h4>' + p.title + '</h4></div>';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(24px)';
+                    var globalIdx = projects.indexOf(p);
+                    (function(idx) {
+                        card.addEventListener('click', function() { openModal(idx); });
+                        card.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(idx); } });
+                    })(globalIdx);
+                    grid.appendChild(card);
+                    setTimeout(function() {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, i * 100 + 60);
+                });
+                shown += batch.length;
+                lazyLoad();
+                updateCounter();
+            }
+
+            function updateCounter() {
+                var filtered = getFiltered();
+                var remaining = filtered.length - shown;
+                var container = document.getElementById('loadMoreContainer');
+                var counter = document.getElementById('projectsCounter');
+                if (remaining <= 0) {
+                    container.style.display = 'none';
+                } else {
+                    container.style.display = '';
+                    counter.textContent = 'عرض ' + shown + ' من ' + filtered.length + ' مشروع';
+                }
+            }
+
+            var lazyObs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var img = entry.target;
+                        img.src = img.dataset.src;
+                        img.onload = function() {
+                            img.classList.add('loaded');
+                            var ph = img.previousElementSibling;
+                            if (ph && ph.classList.contains('img-placeholder')) {
+                                ph.style.opacity = '0';
+                                setTimeout(function() { ph.style.display = 'none'; }, 400);
+                            }
+                        };
+                        img.onerror = function() {
+                            img.classList.add('loaded');
+                        };
+                        lazyObs.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '300px', threshold: 0.01 });
+
+            function lazyLoad() {
+                var imgs = document.querySelectorAll('.project-card img.lazy:not(.loaded)');
+                imgs.forEach(function(img) { lazyObs.observe(img); });
+            }
+
+            document.getElementById('loadMoreBtn').addEventListener('click', loadBatch);
+
+            /* Modal */
+            function openModal(idx) {
+                modalIdx = idx;
+                var p = projects[idx];
+                var modal = document.getElementById('projectModal');
+                var modalImg = document.getElementById('projectModalImg');
+                modalImg.classList.add('loading');
+                modalImg.src = p.img;
+                modalImg.alt = p.title;
+                modalImg.onload = function() { modalImg.classList.remove('loading'); };
+                document.getElementById('projectModalTitle').textContent = p.title;
+                document.getElementById('projectModalCat').textContent = p.cat;
+                document.getElementById('projectModalDesc').textContent = p.desc;
+                document.getElementById('projectModalDetails').innerHTML =
+                    '<div class="project-modal-detail"><strong>' + p.floors + '</strong><span>عدد الطوابق</span></div>' +
+                    '<div class="project-modal-detail"><strong>' + p.capacity + '</strong><span>السعة / الحمولة</span></div>' +
+                    '<div class="project-modal-detail"><strong>' + p.year + '</strong><span>سنة التنفيذ</span></div>';
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.getElementById('projectModalContent').scrollTop = 0;
+            }
+
+            function closeModal() {
+                document.getElementById('projectModal').classList.remove('active');
+                document.body.style.overflow = '';
+                modalIdx = -1;
+            }
+
+            document.getElementById('projectModalClose').addEventListener('click', closeModal);
+            document.getElementById('projectModal').addEventListener('click', function(e) {
+                if (e.target === e.currentTarget) closeModal();
+            });
+            document.getElementById('projectPrev').addEventListener('click', function(e) {
+                e.stopPropagation();
+                openModal(modalIdx > 0 ? modalIdx - 1 : projects.length - 1);
+            });
+            document.getElementById('projectNext').addEventListener('click', function(e) {
+                e.stopPropagation();
+                openModal(modalIdx < projects.length - 1 ? modalIdx + 1 : 0);
+            });
+            document.addEventListener('keydown', function(e) {
+                if (!document.getElementById('projectModal').classList.contains('active')) return;
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowRight') document.getElementById('projectPrev').click();
+                if (e.key === 'ArrowLeft') document.getElementById('projectNext').click();
+            });
+
+            /* Initial load */
+            loadBatch();
+        })();
 
     })();
     </script>
